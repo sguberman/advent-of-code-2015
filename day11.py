@@ -52,22 +52,18 @@ class TestValidation(unittest.TestCase):
         self.assertFalse(is_valid('ABCDFFAA'))
 
     def test_next_valid(self):
-        pass
-        # self.assertEqual(next_valid('abcdefgh'), 'abcdffaa')
-        # self.assertEqual(next_valid('ghijklmn'), 'ghjaabcc')
+        # self.assertEqual(next_valid('abcdezzz'), 'abcdffaa')
+        self.assertEqual(next_valid('ghijklmn'), 'ghjaabcc')
 
 
 class TestIncrementation(unittest.TestCase):
 
     def test_increment(self):
-        incrementer = increment('xx')
-        self.assertEqual(''.join(next(incrementer)), 'xy')
-        self.assertEqual(''.join(next(incrementer)), 'xz')
-        self.assertEqual(''.join(next(incrementer)), 'ya')
-        self.assertEqual(''.join(next(incrementer)), 'yb')
-
-    def test_generation(self):
-        self.assertIn('abcdffaa', increment('abcdefgh'))
+        self.assertEqual(increment('xx'), 'xy')
+        self.assertEqual(increment('xy'), 'xz')
+        self.assertEqual(increment('xz'), 'ya')
+        self.assertEqual(increment('ya'), 'yb')
+        self.assertEqual(increment('abcdezzz'), 'abcdfaaa')
 
 
 def test():
@@ -75,8 +71,20 @@ def test():
 
 
 def increment(word):
-    perms = itertools.permutations(string.ascii_lowercase, len(word))
-    return itertools.dropwhile(lambda x: ''.join(x) <= word, perms)
+    wrapped = True
+    nextword = []
+    for x in reversed(word):
+        if wrapped:
+            if x == 'z':
+                nextchr = 'a'
+            else:
+                nextchr = chr(ord(x) + 1)
+                wrapped = False
+        else:
+            nextchr = x
+            wrapped = False
+        nextword.append(nextchr)
+    return ''.join(reversed(nextword))
 
 
 def has_straight(word):
@@ -94,14 +102,15 @@ def has_two_pairs(word):
 
 
 def is_valid(word):
-    word = ''.join(word)
-    print word
     requirements = (has_straight, no_badchars, has_two_pairs)
     return all(req(word) for req in requirements)
 
 
 def next_valid(password):
-    return ''.join(next(pw for pw in increment(password) if is_valid(pw)))
+    while not is_valid(password):
+        password = increment(password)
+        # print password
+    return password
 
 
 if __name__ == '__main__':
