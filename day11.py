@@ -52,7 +52,7 @@ class TestValidation(unittest.TestCase):
         self.assertFalse(is_valid('ABCDFFAA'))
 
     def test_next_valid(self):
-        # self.assertEqual(next_valid('abcdezzz'), 'abcdffaa')
+        self.assertEqual(next_valid('abcdezzz'), 'abcdffaa')
         self.assertEqual(next_valid('ghijklmn'), 'ghjaabcc')
 
 
@@ -68,6 +68,14 @@ class TestIncrementation(unittest.TestCase):
 
 def test():
     unittest.main()
+
+
+def part1():
+    return next_valid('vzbxkghb')
+
+
+def part2():
+    return next_valid(part1())
 
 
 def increment(word):
@@ -107,6 +115,7 @@ def is_valid(word):
 
 
 def next_valid(password):
+    password = increment(password)
     while not is_valid(password):
         password = increment(password)
         # print password
@@ -114,4 +123,4 @@ def next_valid(password):
 
 
 if __name__ == '__main__':
-    test()
+    print part2()
