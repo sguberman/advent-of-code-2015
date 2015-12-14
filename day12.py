@@ -63,6 +63,8 @@ def get_children(data):
 
 
 def flatten(data):
+    if isinstance(data, dict):
+        data = data.values()
     for item in data:
         if isinstance(item, list):
             for subitem in flatten(item):
@@ -75,4 +77,5 @@ def flatten(data):
 
 
 if __name__ == '__main__':
-    test()
+    print part1()
+
