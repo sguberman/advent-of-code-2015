@@ -47,21 +47,6 @@ def json_sum(json_text):
     return sum(item for item in flatten(data))
 
 
-def get_children(data):
-    if type(data) == dict:
-        return get_children(data.values())
-
-    children = []
-    for item in data:
-        if type(item) == int:
-            children.append(item)
-        elif type(item) == str:
-            continue
-        else:
-            children.extend(get_children(item))
-    return children
-
-
 def flatten(data):
     if isinstance(data, dict):
         data = data.values()
