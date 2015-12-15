@@ -39,28 +39,31 @@ def part1():
 
 
 def part2():
-    pass
+    return json_sum(open('day12.json', 'r').read(), ignore='red')
 
 
-def json_sum(json_text):
+def json_sum(json_text, ignore=None):
     data = json.loads(json_text)
-    return sum(item for item in flatten(data))
+    return sum(item for item in flatten(data, ignore))
 
 
-def flatten(data):
+def flatten(data, ignore=None):
     if isinstance(data, dict):
+        if ignore in data.values():
+            data = {}
         data = data.values()
     for item in data:
         if isinstance(item, list):
-            for subitem in flatten(item):
+            for subitem in flatten(item, ignore):
                 yield subitem
         elif isinstance(item, dict):
-            for subitem in flatten(item.values()):
+            if ignore in item.values():
+                item = {}
+            for subitem in flatten(item.values(), ignore):
                 yield subitem
         elif isinstance(item, int):
             yield item
 
 
 if __name__ == '__main__':
-    print part1()
-
+    print part2()
