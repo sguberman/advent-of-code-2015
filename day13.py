@@ -1,5 +1,5 @@
 import unittest
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from itertools import permutations, tee, islice, chain, izip
 
 
@@ -9,14 +9,17 @@ class TestExample(unittest.TestCase):
         self.assertEqual(optimal_happiness('day13.test'), 330)
 
 
-def optimal_happiness(preference_filename):
-    preferences = parse_preferences(preference_filename)
-    tables = possible_tables(preferences)
-    return max(tables, key=happiness)
+Person = namedtuple('Person', 'name preferences')
 
 
-def parse_preferences(preference_filename):
-    preferences = defaultdict(dict)
+def optimal_happiness(preference_filename, *additional_guests):
+    guests = parse_guests(preference_filename) + list(additional_guests)
+    tables = possible_tables(guests)
+    return happiness(max(tables, key=happiness))
+
+
+def parse_guests(preference_filename):
+    preferences = defaultdict(lambda : defaultdict(int))
     with open(preference_filename, 'r') as prefs:
         for line in prefs:
             line = line.strip().strip('.').split()
@@ -26,19 +29,19 @@ def parse_preferences(preference_filename):
                 score = -1 * score
             neighbor = line[-1]
             preferences[name][neighbor] = score
-    return preferences
+    guests = [Person(name, prefs) for name, prefs in preferences.iteritems()]
+    return guests
 
 
-def possible_tables(preferences):
-    tables = [[{name: preferences[name]} for name in table]
-              for table in permutations(preferences.keys(), len(preferences))]
+def possible_tables(guests):
+    tables = permutations(guests, len(guests))
     return tables
 
 
 def happiness(table):
     happiness = 0
-    for left, name, right in neighbors(table):
-        happiness += name[left['name']] + name[right['name']]
+    for onleft, guest, onright in neighbors(table):
+        happiness += sum(guest.preferences[name] for name in (onleft.name, onright.name))
     return happiness
 
 
@@ -50,4 +53,9 @@ def neighbors(names):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
+    part1 = optimal_happiness('day13.input')
+    myself = Person('me', defaultdict(int))
+    include_myself = optimal_happiness('day13.input', myself)
+    part2 = include_myself - part1
+    print part2
