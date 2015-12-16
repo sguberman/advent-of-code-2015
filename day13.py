@@ -19,7 +19,7 @@ def optimal_happiness(preference_filename, *additional_guests):
 
 
 def parse_guests(preference_filename):
-    preferences = defaultdict(lambda : defaultdict(int))
+    preferences = defaultdict(lambda: defaultdict(int))
     with open(preference_filename, 'r') as prefs:
         for line in prefs:
             line = line.strip().strip('.').split()
@@ -29,19 +29,19 @@ def parse_guests(preference_filename):
                 score = -1 * score
             neighbor = line[-1]
             preferences[name][neighbor] = score
-    guests = [Person(name, prefs) for name, prefs in preferences.iteritems()]
+    guests = [Person(n, p) for n, p in preferences.iteritems()]
     return guests
 
 
 def possible_tables(guests):
-    tables = permutations(guests, len(guests))
+    tables = permutations(guests)
     return tables
 
 
 def happiness(table):
     happiness = 0
     for onleft, guest, onright in neighbors(table):
-        happiness += sum(guest.preferences[name] for name in (onleft.name, onright.name))
+        happiness += guest.preferences[onleft.name] + guest.preferences[onright.name]
     return happiness
 
 
@@ -55,7 +55,6 @@ def neighbors(names):
 if __name__ == '__main__':
     # unittest.main()
     part1 = optimal_happiness('day13.input')
-    myself = Person('me', defaultdict(int))
-    include_myself = optimal_happiness('day13.input', myself)
-    part2 = include_myself - part1
+    print part1
+    part2 = optimal_happiness('day13.input', Person('me', defaultdict(int)))
     print part2
