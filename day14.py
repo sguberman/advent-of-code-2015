@@ -34,22 +34,10 @@ def parse_reindeer(line):
 
 
 def compute_distance(reindeer, time):
-    runtime = 0
-    resttime = 0
-    distance = 0
-    for second in range(time):
-        if runtime < reindeer.stamina:
-            distance += reindeer.speed
-            runtime += 1
-        else:
-            if resttime < reindeer.rest:
-                resttime += 1
-            else:
-                runtime = 0
-                resttime = 0
-    return distance
+    q, r = divmod(time, reindeer.stamina + reindeer.rest)
+    return (q * reindeer.stamina + min(r, reindeer.stamina)) * reindeer.speed
 
 
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
     print race('day14.input', 2503)
