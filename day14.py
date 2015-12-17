@@ -1,5 +1,5 @@
 import unittest
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 
 
 class TestExampleRace(unittest.TestCase):
@@ -38,6 +38,16 @@ def compute_distance(reindeer, time):
     return (q * reindeer.stamina + min(r, reindeer.stamina)) * reindeer.speed
 
 
+def points_race(reindeer_file, seconds=1000):
+    reindeer = get_reindeer_stats(reindeer_file)
+    points = defaultdict(int)
+    for second in range(1, seconds - 1):
+        winner = max(reindeer, key=(lambda r: compute_distance(r, second)))
+        points[winner.name] += 1
+    return max(points.itervalues())
+
+
 if __name__ == '__main__':
     # unittest.main()
     print race('day14.input', 2503)
+    print points_race('day14.input', 2503)
