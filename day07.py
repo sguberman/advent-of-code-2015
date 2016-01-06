@@ -25,7 +25,7 @@ class TestSimpleCircuit(unittest.TestCase):
                   'y': 456,
                   }
 
-        for wire, signal in answer.iteritems():
+        for wire, signal in answer.items():
             self.assertEqual(probe_circuit(gates, wire), signal)
 
 
@@ -47,9 +47,9 @@ def probe_circuit(instructions, wire, known_wires=None):
     if not known_wires:
         known_wires = dict()
     while wire not in known_wires:
-        print 'looping...'
+        # print('looping...')
         for gate in gates:
-            print gate
+            # print(gate)
             if gate['output'] not in known_wires:
                 if all(inp in known_wires or
                        inp in operators or
@@ -92,16 +92,16 @@ def test():
 
 def part1():
     instructions = (line.strip() for line in open('day07.input', 'r'))
-    print probe_circuit(instructions, 'a')
+    print(probe_circuit(instructions, 'a'))
 
 
 def part2():
     instructions = (line.strip() for line in open('day07.input', 'r'))
     override = {'b': 46065}
-    print probe_circuit(instructions, 'a', known_wires=override)
+    print(probe_circuit(instructions, 'a', known_wires=override))
 
 
 if __name__ == '__main__':
     # test()
-    # part1()
+    part1()
     part2()

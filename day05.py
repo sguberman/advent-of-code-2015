@@ -103,14 +103,14 @@ def test():
 
 
 def part1():
-    print sum(is_nice(word) for word in open('day05.input', 'r').readlines())
+    print(sum(is_nice(word) for word in open('day05.input', 'r').readlines()))
 
 
 def part2():
-    print sum(is_nice2(word) for word in open('day05.input', 'r').readlines())
+    print(sum(is_nice2(word) for word in open('day05.input', 'r').readlines()))
 
 
 if __name__ == '__main__':
     # test()
-    # part1()
+    part1()
     part2()

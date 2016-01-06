@@ -1,5 +1,5 @@
 import unittest
-import itertools
+from itertools import zip_longest
 
 
 class TestDeliveries(unittest.TestCase):
@@ -81,7 +81,7 @@ class Team(object):
 
 def grouper(iterable, n, fillvalue=None):
     args = [iter(iterable)] * n
-    return itertools.izip_longest(*args, fillvalue=fillvalue)
+    return zip_longest(*args, fillvalue=fillvalue)
 
 
 def deliver(directions):
@@ -106,15 +106,15 @@ def test():
 
 
 def part1():
-    print deliver(open('day03.input', 'r').read())
+    print(deliver(open('day03.input', 'r').read()))
 
 
 def part2():
     team = Team((0, 0), (0, 0))
-    print team.deliver(open('day03.input', 'r').read())
+    print(team.deliver(open('day03.input', 'r').read()))
 
 
 if __name__ == '__main__':
-    # test()
-    # part1()
+    #test()
+    part1()
     part2()

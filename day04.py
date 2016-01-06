@@ -11,7 +11,7 @@ class TestHashing(unittest.TestCase):
 
 def mine(key, starts='00000'):
     i = 1
-    while not hashlib.md5(key+str(i)).hexdigest().startswith(starts):
+    while not hashlib.md5((key+str(i)).encode('utf-8')).hexdigest().startswith(starts):
         i += 1
     return i
 
@@ -21,14 +21,14 @@ def test():
 
 
 def part1():
-    print mine('ckczppom')
+    print(mine('ckczppom'))
 
 
 def part2():
-    print mine('ckczppom', '000000')
+    print(mine('ckczppom', '000000'))
 
 
 if __name__ == '__main__':
     # test()
-    # part1()
+    part1()
     part2()

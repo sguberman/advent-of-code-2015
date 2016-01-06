@@ -1,5 +1,5 @@
 import unittest
-import itertools
+from itertools import combinations
 
 
 class TestWrappingPaper(unittest.TestCase):
@@ -41,7 +41,7 @@ def total_paper(boxes):
 
 
 def min_perimeter(dimensions):
-    return 2 * min(map(sum, itertools.combinations(lwh(dimensions), 2)))
+    return 2 * min(map(sum, combinations(lwh(dimensions), 2)))
 
 
 def volume(dimensions):
@@ -59,4 +59,7 @@ def total_ribbon(boxes):
 
 if __name__ == '__main__':
     # unittest.main()
-    print total_ribbon(open('day02.input', 'r').readlines())
+    with open('day02.input', 'r') as f:
+        boxes = [line for line in f]
+    print(total_paper(boxes))
+    print(total_ribbon(boxes))

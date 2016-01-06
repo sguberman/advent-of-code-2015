@@ -19,7 +19,7 @@ class TestFinalFloor(unittest.TestCase):
             self.assertEqual(final_floor(k), v)
 
 
-class TestBasement(unittest.TestCase):
+class TestEnteringBasement(unittest.TestCase):
 
     def test_enter_basement(self):
         self.assertEqual(enter_basement(')'), 1)

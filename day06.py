@@ -93,16 +93,18 @@ def parse_command(line):
 
 def part1():
     mylights = LightGrid()
-    for line in open('day06.input', 'r'):
-        mylights.do(*parse_command(line))
-    print mylights.total()
+    with open('day06.input', 'r') as f:
+        for line in f:
+            mylights.do(*parse_command(line))
+    print(mylights.total())
 
 
 def part2():
     mylights = LightGrid(Light2)
-    for line in open('day06.input', 'r'):
-        mylights.do(*parse_command(line))
-    print mylights.total()
+    with open('day06.input', 'r') as f:
+        for line in f:
+            mylights.do(*parse_command(line))
+    print(mylights.total())
 
 
 def test():
@@ -111,5 +113,5 @@ def test():
 
 if __name__ == '__main__':
     # test()
-    # part1()
+    part1()
     part2()
