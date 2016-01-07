@@ -66,4 +66,4 @@ def flatten(data, ignore=None):
 
 
 if __name__ == '__main__':
-    print part2()
+    print(part2())

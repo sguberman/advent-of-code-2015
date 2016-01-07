@@ -42,18 +42,15 @@ class Machine(object):
 
     def run(self):
         while self.position < len(self.instructions):
-            #print self.position
             self.execute()
 
     def execute(self):
         instr = self.instructions[self.position].split()
-        #print instr
         args = instr[1:]
         fun = getattr(self, instr[0])
-        #print fun
         fun(*args)
 
-
-turing = Machine('day23.txt')
-turing.run()
-print turing.registers['b']
+if __name__ == '__main__':
+    turing = Machine('day23.input')
+    turing.run()
+    print(turing.registers['b'])

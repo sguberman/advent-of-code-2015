@@ -15,13 +15,14 @@ class TestExampleRace(unittest.TestCase):
 Reindeer = namedtuple('Reindeer', 'name speed stamina rest')
 
 
-def race(reindeer_file, seconds=1000):
-    reindeer = get_reindeer_stats(reindeer_file)
+def race(reindeer_filename, seconds=1000):
+    reindeer = get_reindeer_stats(reindeer_filename)
     return max(compute_distance(r, seconds) for r in reindeer)
 
 
-def get_reindeer_stats(reindeer_file):
-    return [parse_reindeer(line) for line in open(reindeer_file, 'r')]
+def get_reindeer_stats(reindeer_filename):
+    with open(reindeer_filename, 'r') as rf:
+        return [parse_reindeer(line) for line in rf]
 
 
 def parse_reindeer(line):
@@ -38,16 +39,16 @@ def compute_distance(reindeer, time):
     return (q * reindeer.stamina + min(r, reindeer.stamina)) * reindeer.speed
 
 
-def points_race(reindeer_file, seconds=1000):
-    reindeer = get_reindeer_stats(reindeer_file)
+def points_race(reindeer_filename, seconds=1000):
+    reindeer = get_reindeer_stats(reindeer_filename)
     points = defaultdict(int)
     for second in range(1, seconds - 1):
         winner = max(reindeer, key=(lambda r: compute_distance(r, second)))
         points[winner.name] += 1
-    return max(points.itervalues())
+    return max(points.values())
 
 
 if __name__ == '__main__':
     # unittest.main()
-    print race('day14.input', 2503)
-    print points_race('day14.input', 2503)
+    print(race('day14.input', 2503))
+    print(points_race('day14.input', 2503))

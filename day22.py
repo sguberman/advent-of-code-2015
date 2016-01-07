@@ -124,7 +124,7 @@ def simulate():
         if nextup == 'wizard':
             wizard['hp'] -= 1
             if wizard['hp'] < 1:
-                break 
+                break
             if wizard['mp'] < 53:
                 wizard['mp'] = 0
                 break
@@ -140,7 +140,7 @@ def simulate():
 
 def simulation(n=100):
     costs = []
-    for _ in xrange(n):
+    for _ in range(n):
         cost, result = simulate()
         if result == 'win':
             costs.append(cost)
@@ -148,5 +148,4 @@ def simulation(n=100):
 
 
 if __name__ == '__main__':
-    print simulation(n=100000)
-
+    print(simulation(n=100000))

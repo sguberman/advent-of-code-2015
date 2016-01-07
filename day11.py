@@ -1,5 +1,4 @@
 import unittest
-import itertools
 import string
 import re
 
@@ -97,7 +96,7 @@ def increment(word):
 
 def has_straight(word):
     abc = string.ascii_lowercase
-    straights = itertools.izip(abc, abc[1:], abc[2:])
+    straights = zip(abc, abc[1:], abc[2:])
     return any(''.join(s) in word for s in straights)
 
 
@@ -118,9 +117,8 @@ def next_valid(password):
     password = increment(password)
     while not is_valid(password):
         password = increment(password)
-        # print password
     return password
 
 
 if __name__ == '__main__':
-    print part2()
+    print(part2())

@@ -1,6 +1,6 @@
 import unittest
 from collections import defaultdict, namedtuple
-from itertools import permutations, tee, islice, chain, izip
+from itertools import permutations, tee, islice, chain
 
 
 class TestExample(unittest.TestCase):
@@ -29,7 +29,7 @@ def parse_guests(preference_filename):
                 score = -1 * score
             neighbor = line[-1]
             preferences[name][neighbor] = score
-    guests = [Person(n, p) for n, p in preferences.iteritems()]
+    guests = [Person(n, p) for n, p in preferences.items()]
     return guests
 
 
@@ -49,12 +49,12 @@ def neighbors(names):
     prevs, items, nexts = tee(names, 3)
     prevs = chain([names[-1]], prevs)
     nexts = chain(islice(nexts, 1, None), [names[0]])
-    return izip(prevs, items, nexts)
+    return zip(prevs, items, nexts)
 
 
 if __name__ == '__main__':
     # unittest.main()
     part1 = optimal_happiness('day13.input')
-    print part1
+    print(part1)
     part2 = optimal_happiness('day13.input', Person('me', defaultdict(int)))
-    print part2
+    print(part2)

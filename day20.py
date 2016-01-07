@@ -2,7 +2,7 @@ from collections import defaultdict
 
 
 def factors(n):
-    for i in xrange(1, int(n**0.5) + 1):
+    for i in range(1, int(n**0.5) + 1):
         if n % i == 0:
             yield i
             yield n // i
@@ -13,7 +13,7 @@ maxdeliveries = 50
 presents_per_elf = 11
 deliveries = defaultdict(int)
 
-for i in xrange(1, minpresents // presents_per_elf + 1):
+for i in range(1, minpresents // presents_per_elf + 1):
     presents = 0
     elves = set(factors(i))
     for elf in elves:
@@ -24,4 +24,4 @@ for i in xrange(1, minpresents // presents_per_elf + 1):
     if presents >= minpresents:
         break
 
-print i, presents
+print(i, presents)

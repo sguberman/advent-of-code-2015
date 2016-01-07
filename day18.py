@@ -69,12 +69,12 @@ class LightGrid(object):
         return sum(self.lights[coord] for coord in adj_coords)
 
     def total(self):
-        return sum(self.lights.itervalues())
+        return sum(self.lights.values())
 
     def step(self, n=1):
         for _ in range(n):
             nextgrid = defaultdict(bool)
-            for coord, on in self.lights.items():
+            for coord, on in list(self.lights.items()):
                 num_neighbors = self.adjacent_lit(*coord)
                 if on:
                     if num_neighbors in (2, 3):
@@ -96,4 +96,4 @@ if __name__ == '__main__':
     stuck = ((0, 0), (0, 99), (99, 0), (99, 99))
     mylights = LightGrid(lightfile='day18.input', stuck_on=stuck)
     mylights.step(100)
-    print mylights.total()
+    print(mylights.total())

@@ -25,7 +25,7 @@ def shortest_route(distance_data, func=min):
 
 
 def compute_distance(route, distances):
-    return sum(distances[city1][city2] for city1,city2 in zip(route,route[1:]))
+    return sum(distances[city1][city2] for city1, city2 in zip(route, route[1:]))
 
 
 def parse_data(distance_data):
@@ -57,6 +57,5 @@ def part2():
 
 
 if __name__ == '__main__':
-    # test()
     print(part1())
     print(part2())

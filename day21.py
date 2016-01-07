@@ -14,8 +14,8 @@ boss_attack = 8
 boss_armor = 2
 
 player_hp = 100
-player_attack = xrange(4, 13 + 1)
-player_armor = xrange(0, 10 + 1)
+player_attack = range(4, 13 + 1)
+player_armor = range(0, 10 + 1)
 stats = product(player_attack, player_armor)
 
 winning_stats = []
@@ -63,5 +63,5 @@ for w, a, (r1, r2) in loadouts:
     else:
         losing_gear.append((cost, (w, a, r1, r2), (attack, defense)))
 
-print sorted(winning_gear)[0]
-print sorted(losing_gear, reverse=True)[0]
+print(sorted(winning_gear)[0])
+print(sorted(losing_gear, reverse=True)[0])

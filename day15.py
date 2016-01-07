@@ -75,7 +75,7 @@ def possible_recipes(ingredients):
 
 
 def parts(n, length=None):
-    mixtures = itertools.permutations(xrange(n + 1), length)
+    mixtures = itertools.permutations(range(n + 1), length)
     for mix in mixtures:
         if sum(mix) == n:
             yield mix
@@ -84,4 +84,4 @@ def parts(n, length=None):
 if __name__ == '__main__':
     # unittest.main()
     # print best_recipe('day15.input')
-    print best_recipe('day15.input', calories=500)
+    print(best_recipe('day15.input', calories=500))

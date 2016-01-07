@@ -1,5 +1,5 @@
 def code_number(row, col):
-    n = sum(xrange(1, row)) + 1
+    n = sum(range(1, row)) + 1
     r = row
     c = 1
     nextrow = r + 1
@@ -12,6 +12,7 @@ def code_number(row, col):
             nextrow += 1
             c = 1
     return n
+
 
 def code_generator(seed):
     current = seed
@@ -28,4 +29,4 @@ def code_lookup(row, col, seed):
             return code
 
 
-print code_lookup(3010, 3019, 20151125)
+print(code_lookup(3010, 3019, 20151125))
